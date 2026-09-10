@@ -1,13 +1,16 @@
 # FrameForge
 
-**Beta** — original-roster arena fighter. Unreal: uncapped render / 120 Hz sim / 20 Hz snapshots. 2D itch kernel ships beside it.
+**0.4.2 beta — 2026-09-09.** Original-roster arena fighter.
 
-Local tree is verified (`python3 -m python.frameforge.cli test`) and committed on `main` (`2e07edf`). Push the full tree from the workstation:
+- Unreal: uncapped render / 120 Hz sim / 20 Hz snapshots
+- 2D kernel: https://github.com/cloudcover95/FrameForge2D
+- itch: https://cloudcover95.itch.io/frameforge2d
+- JuniorHome: `juniorhome/README.md` (also updated on cloudcover95/JuniorHome)
 
-```bash
-cd FrameForge
-git remote add origin https://github.com/cloudcover95/FrameForge.git
-git push -u origin main
+Python sim owns knockback. BitNet scores CPU intent only. Not a Nintendo product. See LEGAL.md.
+
+```
+make gate
 ```
 
-Not a Nintendo product. See LEGAL.md after the full push.
+Map plugin: copy `unreal/FrameForge` into UE 5.4 `Plugins/`, GameMode `AFfGameMode`, copy `unreal/Config/*.ini`. Docs: `docs/ROADMAP_UE.md`.
