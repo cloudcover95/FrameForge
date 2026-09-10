@@ -1,6 +1,3 @@
-# Arena pass 2026-09-10
-
-Source: `site/js/adapter.js` (copied to `python/frameforge/adapter_web.js`).
-Itch upload: `artifacts/FrameForge2D-itch.zip` — index.html at zip root.
-
-Hearth lights no longer blink with frame. Bloomreach has rainbow, TL sun arch, right-hill waterfall + pool, stream under the main floor to bottom-left, flowers on the sun hill. Alpine mid trees sit lower mid-right.
+Itch: artifacts/FrameForge2D-itch.zip (~38 KB, thumb.jpg 17 KB, no cover.jpg).
+Fight header: GitHub FrameForge2D, Pause/Play, New, Menu.
+Bloomreach quarter-sun + fall on ridge. Alpine trees off-platform + left creek. Hearth snow drifts again.
