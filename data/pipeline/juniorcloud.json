@@ -1,0 +1,22 @@
+{
+  "org": "JuniorCloudllc",
+  "product": "FrameForge",
+  "homes": ["JuniorHome"],
+  "blend": ["JuniorOmega"],
+  "ai": {
+    "policy": "data/ai/policy.ffbit",
+    "ffbn": "data/ai/policy.ffbn",
+    "ue_sidecar": "unreal/FrameForge/Content/Generated/policy.ffbn",
+    "quant": "python/frameforge/bitnet_quant.py",
+    "optional_mlx": "python/optional/mlx_policy.py",
+    "eval": "adds_only_skip_zero"
+  },
+  "engines": {
+    "web_2d": {"sim_hz": 60, "render": "raf"},
+    "unreal": {"sim_hz": 120, "render": "uncapped", "snapshot_hz": 20, "interp_ms": 100, "chaos": "dress_only"}
+  },
+  "community": {
+    "itch": "cloudcover95.itch.io/frameforge2d",
+    "rails": ["input", "extras", "items", "cpu", "clock", "content", "emit", "ramp"]
+  }
+}

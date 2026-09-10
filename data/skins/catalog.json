@@ -1,0 +1,16 @@
+{
+  "note": "Display meshes only. Sim capsule is unchanged.",
+  "skins": {
+    "vesper": {"gltf": "samples/gltf/fighter_vesper.gltf", "albedo": "blender_out/tex/T_FfVesper_D.png"},
+    "quill": {"gltf": "samples/gltf/fighter_quill.gltf", "albedo": "blender_out/tex/T_FfQuill_D.png"},
+    "relay": {"gltf": "samples/gltf/fighter_relay.gltf", "albedo": "blender_out/tex/T_FfRelay_D.png"},
+    "forge": {"gltf": "samples/gltf/fighter_forge.gltf", "albedo": "blender_out/tex/T_FfForge_D.png"},
+    "cub": {
+      "gltf": "samples/gltf/fighter_cub.gltf",
+      "albedo": "data/skins/cub_default.png",
+      "user_override": "blender_out/skins/user_cub.png",
+      "layout": "ff_cub_64",
+      "note": "Local box avatar. Original FrameForge mesh. Not a third-party character."
+    }
+  }
+}
