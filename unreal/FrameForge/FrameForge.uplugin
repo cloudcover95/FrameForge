@@ -1,0 +1,15 @@
+{
+ "FileVersion": 3,
+ "Version": 1,
+ "VersionName": "0.4.1",
+ "FriendlyName": "FrameForge",
+ "Description": "Original roster arena fighter runtime. JuniorCloud LLC.",
+ "Category": "Game",
+ "CreatedBy": "JuniorCloudllc",
+ "EnabledByDefault": true,
+ "CanContainContent": true,
+ "Modules": [
+  {"Name":"FrameForgeRuntime","Type":"Runtime","LoadingPhase":"Default"},
+  {"Name":"FrameForgeEditor","Type":"Editor","LoadingPhase":"Default"}
+ ]
+}
