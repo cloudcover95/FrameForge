@@ -1,8 +1,9 @@
-# Unreal FrameForge beta
+# Unreal FrameForge beta — 0.4.2 / 2026-09-09
 
-Clock is split. Fighters kinematic. BitNet is intent only.
+Clock split. Fighters kinematic. BitNet intent only.
 
-Live: 120 Hz sim, uncapped render, 20 Hz net, 2-4 slots, FFBN/FFCS, Cub costume slot.
+Live: catalog CSV, 120 Hz subsystem, 20 Hz IpNetDriver, GameMode 2-4 + CPU fill, HostNet, FFBN/CSR, predictor RTT, Chaos dress channels, match rules, item actor, replay capture, Cub skin.
 
-Flags off by default: Lumen GI, Chaos fighter mesh, BitNet KB scale.
-Steam/EOS interface only. SDKs not linked.
+Off by default: Steam/EOS SDK, Lumen GI, Chaos on capsule, BitNet knockback write.
+
+Drop plugin on UE 5.4, GameMode AFfGameMode, copy Config/*.ini, PIE.
