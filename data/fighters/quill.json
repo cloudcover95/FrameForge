@@ -1,0 +1,9 @@
+{
+  "id": "quill", "display_name": "Quill", "species": "human",
+  "pronouns": "he/him", "archetype": "sword-spacer",
+  "attributes": {
+    "weight": 87, "gravity": 0.085, "terminal_velocity": 2.2,
+    "fast_fall_speed": 2.8, "walk_speed": 1.6, "dash_speed": 1.9,
+    "air_speed": 0.9, "jump_v": 2.9, "short_hop_v": 1.5, "double_jump_v": 2.7, "jumps": 2
+  }
+}

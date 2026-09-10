@@ -1,0 +1,9 @@
+{
+  "id": "forge", "display_name": "Forge", "species": "crystal_automaton",
+  "pronouns": "it/its", "archetype": "heavy",
+  "attributes": {
+    "weight": 113, "gravity": 0.13, "terminal_velocity": 1.7,
+    "fast_fall_speed": 2.2, "walk_speed": 0.85, "dash_speed": 1.5,
+    "air_speed": 0.7, "jump_v": 2.4, "short_hop_v": 1.2, "double_jump_v": 2.2, "jumps": 2
+  }
+}

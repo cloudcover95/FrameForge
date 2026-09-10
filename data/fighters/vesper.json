@@ -1,0 +1,20 @@
+{
+  "id": "vesper",
+  "display_name": "Vesper",
+  "species": "owl",
+  "pronouns": "they/them",
+  "archetype": "fast-faller",
+  "notes": "Anthropomorphic owl scout.",
+  "attributes": {
+    "weight": 75, "gravity": 0.23, "terminal_velocity": 2.8,
+    "fast_fall_speed": 3.4, "air_friction": 0.02, "traction": 0.08,
+    "walk_speed": 1.6, "dash_speed": 2.2, "air_speed": 0.83,
+    "jump_v": 3.68, "short_hop_v": 2.1, "double_jump_v": 3.68,
+    "jumps": 2, "shield_size": 0.95, "model_scale": 1.0
+  },
+  "hurtboxes": [
+    {"bone":"hurt_head","radius":0.55,"height":0.4},
+    {"bone":"hurt_torso","radius":0.7,"height":1.1},
+    {"bone":"hurt_legs","radius":0.5,"height":0.9}
+  ]
+}

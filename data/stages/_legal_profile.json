@@ -1,0 +1,10 @@
+{
+  "id": "forge_standard",
+  "blastzones": {"left": -232, "right": 232, "top": 212, "bottom": -128},
+  "platforms": [
+    {"id": "main", "x": 0, "y": 0, "w": 168, "h": 9, "solid": true, "grabbable_ledges": true},
+    {"id": "plat_l", "x": -54, "y": 27, "w": 34, "h": 3, "solid": false},
+    {"id": "plat_r", "x": 54, "y": 27, "w": 34, "h": 3, "solid": false}
+  ],
+  "rules": {"walk_offs": false, "walls": false, "hazards": false}
+}

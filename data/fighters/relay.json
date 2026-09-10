@@ -1,0 +1,9 @@
+{
+  "id": "relay", "display_name": "Relay", "species": "human",
+  "pronouns": "she/her", "archetype": "midweight-mage",
+  "attributes": {
+    "weight": 100, "gravity": 0.17, "terminal_velocity": 2.3,
+    "fast_fall_speed": 2.9, "walk_speed": 1.2, "dash_speed": 1.8,
+    "air_speed": 0.8, "jump_v": 3.1, "short_hop_v": 1.7, "double_jump_v": 3.0, "jumps": 2
+  }
+}
