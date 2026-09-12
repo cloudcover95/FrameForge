@@ -18,8 +18,21 @@ function code4() {
   return s;
 }
 
+function queryRoom() {
+  try {
+    const q = new URLSearchParams(location.search);
+    return {
+      room: String(q.get("room") || "").toUpperCase(),
+      host: q.get("host") === "1" || q.get("host") === "true",
+    };
+  } catch {
+    return { room: "", host: false };
+  }
+}
+
 export const FFNet = {
   makeCode: code4,
+  queryRoom,
   enabled: false,
   host: false,
   room: "",
@@ -31,10 +44,12 @@ export const FFNet = {
   status: "off",
   lastState: null,
   peer: null,
+  prefix: PREFIX,
 
   boot(opts) {
-    this.room = String(opts.room || "").toUpperCase();
-    this.host = !!opts.host;
+    const q = queryRoom();
+    this.room = String(opts.room || q.room || "").toUpperCase();
+    this.host = opts.host !== undefined ? !!opts.host : q.host;
     if (!this.room || typeof Peer === "undefined") {
       this.status = "offline";
       return Promise.resolve(false);
@@ -56,13 +71,24 @@ export const FFNet = {
   },
 
   _peerOpts() {
-    return { debug: 0, config: ICE };
+    const opts = { debug: 0, config: ICE };
+    const host = (typeof window !== "undefined" && window.FF_PEER_HOST) || "";
+    if (host) {
+      try {
+        const u = new URL(host);
+        opts.host = u.hostname;
+        opts.port = +u.port || (u.protocol === "https:" ? 443 : 9000);
+        opts.path = u.pathname || "/";
+        opts.secure = u.protocol === "https:";
+      } catch {}
+    }
+    return opts;
   },
 
   _host() {
     const self = this;
     return new Promise((resolve) => {
-      const peer = new Peer(PREFIX + self.room, self._peerOpts());
+      const peer = new Peer(self.prefix + self.room, self._peerOpts());
       self.peer = peer;
       const done = (ok) => resolve(ok);
       const t = setTimeout(() => { self.status = "timeout"; done(false); }, 8000);
@@ -87,7 +113,7 @@ export const FFNet = {
       const t = setTimeout(() => { self.status = "timeout"; resolve(false); }, 8000);
       peer.on("error", () => { clearTimeout(t); self.status = "error"; resolve(false); });
       peer.on("open", () => {
-        const conn = peer.connect(PREFIX + self.room, { reliable: true });
+        const conn = peer.connect(self.prefix + self.room, { reliable: true });
         self.conns = [conn];
         conn.on("data", (raw) => self._on(raw, 0));
         conn.on("error", () => { clearTimeout(t); resolve(false); });
