@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.4.3+hybrid — 2026-09-12
+web3d-grok hybrid: rising-edge pad, drop-through plats, items/ults, brighter stages, shared JuniorCloud blender host in blender_ext.
+
 ## 0.4.2+pipeline — 2026-09-12
 Studio gate restored. Stdlib mesh emit + Blender extension + UE Generated roster. Optional Blender binary.
 
