@@ -1,9 +1,20 @@
 import { emptyInput } from "./sim.js";
 
 /** Recover toward stage, DI away, mix shield. No BitNet in this learning slice. */
-export function cpuThink(self, foe, floor, frame) {
+export function pickFoe(self, pack) {
+  let best = null;
+  let d = 1e9;
+  for (const o of pack) {
+    if (!o || o === self || !o.alive) continue;
+    const n = Math.abs(o.x - self.x) + Math.abs(o.y - self.y) * 0.4;
+    if (n < d) { d = n; best = o; }
+  }
+  return best || pack.find((o) => o !== self) || self;
+}
+
+export function cpuThink(self, foe, floor, frame, diff = "normal") {
   const i = emptyInput();
-  if (!self.alive) return i;
+  if (!self.alive || !foe) return i;
 
   const onStage = Math.abs(self.x) < floor.main.w / 2 - 4 && self.y >= -2;
   const off = self.x < -floor.main.w / 2 + 2 || self.x > floor.main.w / 2 - 2 || self.y < -8;
@@ -28,12 +39,18 @@ export function cpuThink(self, foe, floor, frame) {
   if (self.grounded && frame % 47 === 0 && Math.random() < 0.35) i.jump = true;
   if (!self.grounded && foe.y > self.y + 6) i.jump = true;
 
+  const grabOk = diff === "high" || (diff === "normal" && frame % 90 > 50);
   if (dist < 20 && Math.abs(self.y - foe.y) < 14) {
     const r = (frame + self.x) % 23;
     if (r < 6) i.attack = true;
     else if (r < 9) i.special = true;
     else if (r < 12) i.shield = true;
-    else if (r === 14) i.grab = true;
+    else if (r === 14 && grabOk) i.grab = true;
+  }
+  if (diff === "easy") {
+    i.grab = false;
+    i.ult = false;
+    if (frame % 3) i.attack = false;
   }
 
   if (foe.action === "smash" || foe.action === "ult") i.shield = true;

@@ -1,4 +1,6 @@
-/** Melee-documented knockback. Mirrors python/frameforge/math_kb.py. */
+/** Melee-documented knockback. Mirrors python/frameforge/math_kb.py.
+ *  O(1) per hit. Four fighters. Do not GPU this. BitNet does not scale launch.
+ */
 export const STALE_TABLE = [1, 0.91, 0.86, 0.81, 0.76, 0.71, 0.66, 0.61, 0.56, 0.51];
 export const LAUNCH_SPEED_SCALE = 0.03;
 export const SAKURAI = 361;
