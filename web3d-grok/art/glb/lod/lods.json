@@ -1,0 +1,26 @@
+{
+  "note": "trit picks density only. detailed = blender GLB.",
+  "map": {
+    "vesper": {
+      "perf": "art/glb/lod/fighter_vesper_perf.glb",
+      "balanced": "art/glb/lod/fighter_vesper_balanced.glb",
+      "detailed": "art/glb/fighter_vesper.glb"
+    },
+    "quill": {
+      "perf": "art/glb/lod/fighter_quill_perf.glb",
+      "balanced": "art/glb/lod/fighter_quill_balanced.glb",
+      "detailed": "art/glb/fighter_quill.glb"
+    },
+    "relay": {
+      "perf": "art/glb/lod/fighter_relay_perf.glb",
+      "balanced": "art/glb/lod/fighter_relay_balanced.glb",
+      "detailed": "art/glb/fighter_relay.glb"
+    },
+    "forge": {
+      "perf": "art/glb/lod/fighter_forge_perf.glb",
+      "balanced": "art/glb/lod/fighter_forge_balanced.glb",
+      "detailed": "art/glb/fighter_forge.glb"
+    }
+  },
+  "trit": { "perf": -1, "balanced": 0, "detailed": 1 }
+}

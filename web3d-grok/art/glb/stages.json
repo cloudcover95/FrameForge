@@ -1,0 +1,6 @@
+{
+  "bloomreach": { "id": "bloomreach", "verts": 1095, "faces": 1508, "bytes": 47508 },
+  "alpine": { "id": "alpine", "verts": 1095, "faces": 1508, "bytes": 47380 },
+  "emberfall": { "id": "emberfall", "verts": 1095, "faces": 1508, "bytes": 47476 },
+  "hearth": { "id": "hearth", "verts": 1095, "faces": 1508, "bytes": 47376 }
+}
