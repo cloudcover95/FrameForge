@@ -1,0 +1,12 @@
+{
+  "fighter_id": "forge",
+  "moves": [
+    {"id": "jab", "dmg": 4, "kbg": 30, "bkb": 12, "ang": 361},
+    {"id": "tilt", "dmg": 9, "kbg": 80, "bkb": 28, "ang": 361},
+    {"id": "smash", "dmg": 16, "kbg": 98, "bkb": 42, "ang": 40},
+    {"id": "aerial", "dmg": 10, "kbg": 86, "bkb": 24, "ang": 361},
+    {"id": "special", "dmg": 8, "kbg": 70, "bkb": 30, "ang": 50},
+    {"id": "throw", "dmg": 8, "kbg": 60, "bkb": 50, "ang": 45},
+    {"id": "ult_core_collapse", "dmg": 22, "kbg": 92, "bkb": 58, "ang": 50, "hits": 1, "max_launch": 5.2}
+  ]
+}
