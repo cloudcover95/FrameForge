@@ -1,8 +1,5 @@
 #!/usr/bin/env node
-/**
- * Production check for the Grok learning slice.
- * No network. Compares JS knockback against the Python math_kb copy.
- */
+/** Headless parity check. Do not assert storefront copy. */
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -57,8 +54,8 @@ const vy = speed * Math.sin(rad);
 const hs = (kb * 0.4) | 0;
 const [pkb, pvx, pvy, phs] = py.stdout.trim().split(/\s+/).map(Number);
 assert.ok(Math.abs(kb - pkb) < 1e-6, `kb ${kb} vs ${pkb}`);
-assert.ok(Math.abs(vx - pvx) < 1e-6, `vx ${vx} vs ${pvx}`);
-assert.ok(Math.abs(vy - pvy) < 1e-6, `vy ${vy} vs ${pvy}`);
+assert.ok(Math.abs(vx - pvx) < 1e-6);
+assert.ok(Math.abs(vy - pvy) < 1e-6);
 assert.equal(hs, phs);
 
 const sim = readFileSync(join(root, "js/sim.js"), "utf8");
@@ -68,7 +65,10 @@ assert.match(sim, /Codex Rift/);
 
 const html = readFileSync(join(root, "index.html"), "utf8");
 assert.match(html, /Not a Nintendo product/);
-assert.match(html, /no Blender/);
+assert.match(html, /Vesper/);
+assert.doesNotMatch(html, /Grok Build/);
+assert.doesNotMatch(html, /no Blender/);
+assert.doesNotMatch(html, /BitNet/);
 
 const { createMatch, tickMatch, emptyInput, moveTable } = await import("./js/sim.js");
 assert.equal(moveTable("vesper").ult.maxLaunch, 4.1);
@@ -78,16 +78,4 @@ for (let i = 0; i < 180; i++) tickMatch(match, [atk, emptyInput()]);
 assert.equal(match.p[0].alive || match.p[0].stocks <= 1, true);
 assert.ok(match.frame === 180);
 
-console.log(
-  JSON.stringify(
-    {
-      ok: true,
-      slice: "web3d-grok",
-      fighters: Object.keys(roster.fighters),
-      knockback80_12_75: Number(kb.toFixed(4)),
-      python_match: true,
-    },
-    null,
-    2,
-  ),
-);
+console.log(JSON.stringify({ ok: true, slice: "web3d-grok", fighters: Object.keys(roster.fighters), knockback80_12_75: Number(kb.toFixed(4)), python_match: true }, null, 2));
