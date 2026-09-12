@@ -1,41 +1,36 @@
-# Beta deploy options
+# Beta deploy
 
-## 1. Itch HTML5 — already live (2D kernel)
-Project: https://cloudcover95.itch.io/frameforge2d
-Repo: cloudcover95/FrameForge2D
-Upload a zip with `index.html` at the root (`site/` contents). Kind: HTML.
-Embed: default size 1280×720, `SharedArrayBuffer` off.
+## Live
+https://cloudcover95.itch.io/frameforge2d — 2D HTML5 kernel.
 
-```
-cd FrameForge2D/site && zip -r ../dist/frameforge2d-html5.zip .
-butler push dist/frameforge2d-html5.zip cloudcover95/frameforge2d:html5
-```
-
-## 2. Itch HTML5 — Unreal-experience web slice
-Folder: `web3d-grok/` in this repo. Three.js CDN, no build step.
-New itch project suggested slug: `frameforge-unreal-web` (separate from 2D).
-Zip `web3d-grok/` with `index.html` at root. Mobile touch is in the private Grok preview; this slice is the studio twin.
+## Second HTML5 project — Unreal web
+Slug: `frameforge-unreal-web`
+Zip is built from `web3d-grok/` with `index.html` at the root.
 
 ```
-cd web3d-grok && zip -r ../dist/frameforge-unreal-web.zip .
-butler push ../dist/frameforge-unreal-web.zip cloudcover95/frameforge-unreal-web:html5
+bash scripts/pack_itch_web3d.sh
+butler push dist/frameforge-unreal-web.zip cloudcover95/frameforge-unreal-web:html5
 ```
 
-## 3. Itch download — UE 5.4 packaged Windows
-Not HTML5. Package the host project that loads `unreal/FrameForge` as a plugin.
-Upload the packaged folder as a .zip channel `windows`.
-Needs a real .uproject host; this repo ships the plugin only.
+Local self-host (45 W node, no editor):
 
 ```
-butler push Dist/Windows cloudcover95/frameforge:windows --userversion 0.4.2-beta
+python3 -m python.frameforge.cli serve-web3d --port 8766
+python3 -m python.frameforge.cli serve-2d --port 8765
 ```
 
-## 4. Itch download — Grok preview PWA
-Private repo `bold-summit-wood-quiet` already has Vercel + PWA hooks.
-For itch, `npm run build` then zip `dist/` as HTML5. Larger than the 2D kernel.
+## Windows UE 5.4 host
+Host project: `unreal/Host/FrameForgeHost.uproject`
+Plugin: `unreal/FrameForge` (symlink via `scripts/link_host_plugin.sh`).
 
-## Recommendation for this beta week
-Ship **2D HTML5** (live) + **web3d-grok HTML5** as the Unreal-look public beta.
-Hold a Windows UE zip until a host .uproject exists. Do not upload plugin sources as a game build.
+This environment does not run UnrealEditor. On a UE 5.4 builder:
+
+```
+export UE_ROOT=/path/to/UE_5.4/Engine
+bash scripts/package_ue_windows.sh
+butler push dist/windows/Windows cloudcover95/frameforge:windows --userversion 0.4.2-beta
+```
+
+Listen-server after package: `FrameForgeHost.exe -listen -port=7777`
 
 Not a Nintendo product. JuniorCloud LLC.
