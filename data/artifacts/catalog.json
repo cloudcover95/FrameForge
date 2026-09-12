@@ -1,0 +1,17 @@
+{
+  "note": "Items rail. Dress props never write knockback.",
+  "artifacts": {
+    "heart": {"name": "Hearth Seed", "effect": "heal", "tied_to": "stage"},
+    "ember-cell": {"name": "Ember Cell", "effect": "ult", "tied_to": "forge"},
+    "veil-charm": {"name": "Veil Charm", "effect": "shield", "tied_to": "vesper"},
+    "ledger-pin": {"name": "Ledger Pin", "effect": "ult", "tied_to": "quill"},
+    "codex-shard": {"name": "Codex Shard", "effect": "ult", "tied_to": "relay"},
+    "core-slag": {"name": "Core Slag", "effect": "dress", "tied_to": "forge"}
+  },
+  "stage_dress": {
+    "bloomreach": ["veil-charm", "heart"],
+    "alpine": ["ledger-pin", "heart"],
+    "emberfall": ["ember-cell", "core-slag"],
+    "hearth": ["codex-shard", "heart"]
+  }
+}

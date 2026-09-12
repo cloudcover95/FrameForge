@@ -1,0 +1,6 @@
+{
+  "items_default": false,
+  "ids": ["heart", "ember-cell", "veil-charm", "ledger-pin", "codex-shard", "core-slag"],
+  "look_only": ["core-slag"],
+  "legal": "Not a Nintendo product. JuniorCloud LLC."
+}
