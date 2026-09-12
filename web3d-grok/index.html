@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>FrameForge Unreal — Grok Build</title>
+    <meta name="description" content="Standalone Three.js learning slice. Procedural arena fighter. Not a Nintendo product." />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <b>FRAMEFORGE · GROK BUILD</b>
+        <nav>
+          <a href="https://github.com/cloudcover95/FrameForge" target="_blank" rel="noopener">Unreal repo</a>
+          <a href="https://github.com/cloudcover95/FrameForge2D" target="_blank" rel="noopener">2D kernel</a>
+          <button type="button" id="btn-menu">Menu</button>
+        </nav>
+      </header>
+      <div id="stage-wrap">
+        <canvas id="view"></canvas>
+        <div id="hud" hidden>
+          <div id="hud-p1"></div>
+          <div id="hud-p2"></div>
+        </div>
+        <div id="banner">Bloomreach</div>
+        <div id="result" hidden></div>
+        <div id="touch">
+          <div id="stick" aria-label="move"></div>
+          <div id="btns">
+            <button type="button" data-pad="jump">JUMP</button>
+            <button type="button" data-pad="attack">ATK</button>
+            <button type="button" data-pad="special">SP</button>
+            <button type="button" data-pad="shield">SH</button>
+            <button type="button" data-pad="grab">GRAB</button>
+            <button type="button" data-pad="ult">ULT</button>
+          </div>
+        </div>
+        <section id="overlay">
+          <h1>FRAMEFORGE UNREAL</h1>
+          <p class="sub">
+            Standalone Grok web build. Cinematic 3D arena cut of the original roster,
+            rendered with primitives — no Blender GLB, no UE 5.4 plugin meshes.
+            Same legal floor as Bloomreach / Alpine / Emberfall / Hearth.
+          </p>
+          <p>P1</p>
+          <div class="row">
+            <button type="button" class="on" data-pick="p1:vesper">Vesper</button>
+            <button type="button" data-pick="p1:quill">Quill</button>
+            <button type="button" data-pick="p1:relay">Relay</button>
+            <button type="button" data-pick="p1:forge">Forge</button>
+          </div>
+          <p>P2</p>
+          <div class="row">
+            <button type="button" data-pick="p2:vesper">Vesper</button>
+            <button type="button" data-pick="p2:quill">Quill</button>
+            <button type="button" data-pick="p2:relay">Relay</button>
+            <button type="button" class="on" data-pick="p2:forge">Forge</button>
+          </div>
+          <p>Season floor</p>
+          <div class="row">
+            <button type="button" class="on" data-stage="bloomreach">Bloomreach</button>
+            <button type="button" data-stage="alpine">Alpine</button>
+            <button type="button" data-stage="emberfall">Emberfall</button>
+            <button type="button" data-stage="hearth">Hearth</button>
+          </div>
+          <div class="row">
+            <label>Stocks
+              <select id="stocks">
+                <option>3</option>
+                <option selected>4</option>
+                <option>5</option>
+              </select>
+            </label>
+            <label><input id="cpu" type="checkbox" checked /> CPU on P2</label>
+          </div>
+          <div class="actions">
+            <button type="button" id="btn-enter">Enter Arena</button>
+            <button type="button" class="ghost" id="btn-quick">Quick Fight · Vesper vs Forge</button>
+          </div>
+          <p class="note">
+            P1: WASD move · W/Space jump · J attack · K special · L shield · I grab · U ultimate · O dodge · P/Esc pause.
+            P2: arrows + 1–4. Hold J for smash. Vesper Veil Plunge is a multi-hit pull, launch-capped so it no longer yeets at low percent.
+            JuniorCloud LLC. Not a Nintendo product.
+          </p>
+        </section>
+      </div>
+      <footer>Learning slice inside cloudcover95/FrameForge · procedural only</footer>
+    </div>
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>
