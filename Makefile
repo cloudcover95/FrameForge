@@ -12,8 +12,10 @@ gate:
 grok-check:
 	node web3d-grok/check.mjs
 
-.PHONY: emit codegen
+.PHONY: emit codegen quant
 emit:
 	$(PYTHON) -m python.frameforge.cli emit-meshes
 codegen:
 	$(PYTHON) -m python.frameforge.cli codegen-ue
+quant:
+	$(PYTHON) -m python.frameforge.cli quant --out data/ai

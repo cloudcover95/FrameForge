@@ -20,12 +20,12 @@ def cmd_codegen(args) -> int:
     return 0
 
 
-def cmd_quant(_args) -> int:
-    out = ROOT / "data" / "ai"
-    out.mkdir(parents=True, exist_ok=True)
-    note = out / "policy.ffbn.json"
-    note.write_text(json.dumps({"role": "cpu_policy_logits_only", "present": False}), encoding="utf-8")
-    print(f"quant placeholder -> {note}")
+def cmd_quant(args) -> int:
+    from .bitnet_quant import run_pipeline
+    dest = Path(args.out) if getattr(args, "out", "") else ROOT / "data" / "ai"
+    meta = run_pipeline(dest)
+    print(json.dumps({k: v for k, v in meta.items() if k != "probe"}, indent=2))
+    print("probe", meta.get("probe", {}).get("intent"))
     return 0
 
 
@@ -48,7 +48,10 @@ def main(argv=None) -> int:
     sub.add_parser("test")
     cg = sub.add_parser("codegen-ue")
     cg.add_argument("--out", default="")
-    sub.add_parser("quant")
+    q = sub.add_parser("quant")
+    q.add_argument("--out", default="")
+    eng = sub.add_parser("engine")
+    eng.add_argument("--out", default="")
     sub.add_parser("emit-meshes")
     sk = sub.add_parser("skin")
     sk.add_argument("--src", default="")
@@ -57,7 +60,7 @@ def main(argv=None) -> int:
         return cmd_test(args)
     if args.cmd == "codegen-ue":
         return cmd_codegen(args)
-    if args.cmd == "quant":
+    if args.cmd in {"quant", "engine"}:
         return cmd_quant(args)
     if args.cmd == "emit-meshes":
         return cmd_emit(args)

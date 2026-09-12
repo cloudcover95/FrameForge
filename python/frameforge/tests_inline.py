@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from .math_kb import knockback, launch_velocity, hitstun_frames
 from .sim import FighterState, Match
+from . import bitnet_quant
 
 
 def run() -> int:
@@ -27,5 +28,9 @@ def run() -> int:
     match.step()
     if match.frame != 1:
         return 1
-    print("tests_inline ok")
+    q = bitnet_quant.self_test()
+    if not q.get("ok"):
+        print("bitnet quant failed", q)
+        return 1
+    print("tests_inline ok", q)
     return 0
