@@ -7,3 +7,5 @@ Live: catalog CSV, 120 Hz subsystem, 20 Hz IpNetDriver, GameMode 2-4 + CPU fill,
 Off by default: Steam/EOS SDK, Lumen GI, Chaos on capsule, BitNet knockback write.
 
 Drop plugin on UE 5.4, GameMode AFfGameMode, copy Config/*.ini, PIE.
+
+Pipeline restored 2026-09-12: `blender_ext/` + `python/frameforge/cli.py` emit-meshes/codegen-ue. Drop plugin on UE 5.4 still the install path.
