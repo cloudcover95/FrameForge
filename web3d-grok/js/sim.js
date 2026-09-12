@@ -71,33 +71,67 @@ export function createFighter(def, x, facing, stocks) {
     jumpsLeft: def.jumps, percent: 0, stocks, meter: 0, shield: 50, shielding: false,
     action: "idle", actionT: 0, actionMax: 0, hitstun: 0, hitlag: 0, invuln: 0,
     grabT: 0, dodgeT: 0, stale: {}, fastFall: false, ultHits: 0, alive: true, respawnT: 0,
+    dropT: 0, px: x, py: 8,
   };
 }
 
 export function createMatch(roster, opts) {
-  const p1 = roster.fighters[opts.p1];
-  const p2 = roster.fighters[opts.p2];
   const stocks = opts.stocks ?? 4;
+  const ids = ["vesper", "quill", "relay", "forge"];
+  const seats = opts.mode === "ffa" ? Math.max(2, Math.min(4, opts.seats || 4)) : 2;
+  const chosen = [opts.p1 || "vesper", opts.p2 || "forge"];
+  while (chosen.length < seats) {
+    const n = ids.find((id) => !chosen.includes(id)) || ids[chosen.length % 4];
+    chosen.push(n);
+  }
+  const span = [ -42, 42, -18, 18 ];
+  const pack = chosen.slice(0, seats).map((id, i) => {
+    const def = roster.fighters[id] || roster.fighters.vesper;
+    const x = span[i] ?? ((i % 2 ? 1 : -1) * (36 + i * 8));
+    return createFighter(def, x, x < 0 ? 1 : -1, stocks);
+  });
+  const floor = JSON.parse(JSON.stringify(roster.floor));
+  if (opts.plats !== false) {
+    const have = new Set((floor.plats || []).map((p) => p.id));
+    [
+      { id: "plat_c", x: 0, y: 48, w: 36, h: 3, soft: true },
+      { id: "plat_ml", x: -28, y: 18, w: 24, h: 3, soft: true },
+      { id: "plat_mr", x: 28, y: 18, w: 24, h: 3, soft: true },
+    ].forEach((p) => { if (!have.has(p.id)) floor.plats.push(p); });
+    floor.plats.forEach((p) => { p.soft = true; });
+  }
   return {
-    roster, stageId: opts.stage ?? "bloomreach", floor: roster.floor,
+    roster, stageId: opts.stage ?? "bloomreach", floor,
     paused: false, over: false, winner: null, frame: 0, hitStop: 0, fx: [],
-    p: [createFighter(p1, -36, 1, stocks), createFighter(p2, 36, -1, stocks)],
+    p: pack, mode: opts.mode || "versus",
+    items: [],
+    shots: [],
+    ultimates: opts.ultimates !== false,
+    itemsOn: !!(opts.items || opts.artifacts),
+    rage: opts.rage !== false,
+    coach: "Ready",
+    combo: 0,
+    comboAt: 0,
   };
 }
 
-function platformAt(floor, x, y, prevY) {
+function platformAt(floor, x, y, prevY, drop) {
   const main = floor.main;
   const half = main.w / 2;
-  if (x >= main.x - half && x <= main.x + half) {
-    if (prevY >= main.y && y <= main.y + 1.2 && y >= main.y - 8) return main.y;
-  }
-  for (const plat of floor.plats) {
+  let soft = null;
+  for (const plat of floor.plats || []) {
     const h = plat.w / 2;
     if (x >= plat.x - h && x <= plat.x + h) {
-      if (prevY >= plat.y && y <= plat.y + 1.2) return plat.y;
+      if (prevY >= plat.y - 0.2 && y <= plat.y + 2.4 && prevY >= y - 0.01) {
+        if (!drop) return plat.y;
+        soft = plat.y;
+      }
     }
   }
-  return null;
+  if (x >= main.x - half && x <= main.x + half) {
+    if (prevY >= main.y && y <= main.y + 1.6 && y >= main.y - 10) return main.y;
+  }
+  return drop ? null : soft;
 }
 
 function startAction(f, name, frames) {
@@ -173,20 +207,34 @@ export function tickFighter(f, input, other, match) {
   const moves = moveTable(f.id);
   const busy = f.action !== "idle" && f.action !== "walk" && f.action !== "dash" && f.action !== "air" && f.action !== "tumble" && f.action !== "shield";
   if (!busy && f.hitstun <= 0) {
-    if (input.ult && f.meter >= 100) {
+    if (input.ult && match.ultimates !== false && f.meter >= 100) {
       f.meter = 0; f.ultHits = 0; startAction(f, "ult", moves.ult.frames);
+      match.coach = moves.ult.name;
+      match.fx.push({ kind: "ult", x: f.x, y: f.y + 12, t: 18, c: f.def.accent || "#e07a4a", s: 2 });
     } else if (input.grab) startAction(f, "grab", 16);
     else if (input.special) {
       startAction(f, "special", moves.special.frames);
       if (moves.special.blink) { f.x += f.facing * moves.special.blink; f.invuln = Math.max(f.invuln, 8); }
+      if (moves.special.projectile) {
+        match.shots.push({
+          id: f.id + "-shot", x: f.x + f.facing * 10, y: f.y + 10,
+          vx: f.facing * 3.4, vy: 0, life: 48, owner: f, move: moves.special,
+        });
+        match.fx.push({ kind: "spark", x: f.x + f.facing * 14, y: f.y + 10, t: 8, c: "#c4a35a" });
+      }
     } else if (input.attack) {
       if (!f.grounded) startAction(f, "aerial", moves.aerial.frames);
       else if (input.holdAttack > 12) startAction(f, "smash", moves.smash.frames);
       else if (Math.abs(input.x) > 0.5) startAction(f, "tilt", moves.tilt.frames);
       else startAction(f, "jab", moves.jab.frames);
+      match.coach = f.action === "aerial" ? "Air" : f.action === "smash" ? "Smash" : f.action === "tilt" ? "Tilt" : "Jab";
     } else if (input.shield && f.grounded) { f.action = "shield"; f.shielding = true; }
-    else if (input.dodge && f.grounded) {
-      startAction(f, "dodge", 16); f.invuln = 10; f.vx = f.facing * (input.x >= 0 ? 2.4 : -2.4);
+    else if (input.dodge) {
+      startAction(f, "dodge", f.grounded ? 16 : 12);
+      f.invuln = f.grounded ? 10 : 14;
+      f.vx = f.facing * (Math.abs(input.x) > 0.2 ? Math.sign(input.x) * 2.6 : 2.2);
+      if (!f.grounded) f.vy = Math.max(f.vy, 1.1);
+      match.coach = "Dodge";
     }
   }
   if (f.action === "shield") {
@@ -204,15 +252,33 @@ export function tickFighter(f, input, other, match) {
     const mv = moves[f.action] || moves.jab;
     if (f.action === "ult") {
       const u = moves.ult;
-      const idx = ((f.actionT - u.hit) / Math.max(1, u.gap)) | 0;
-      if (f.actionT >= u.hit && idx < u.hits && f.actionT === u.hit + idx * u.gap) {
-        if (u.rift) { other.x += (f.x - other.x) * 0.55; other.y += (f.y + 6 - other.y) * 0.4; }
-        applyHit(f, other, { ...u, dmg: u.dmg }, match, "ult");
+      const idx = ((f.actionT - u.hit) / Math.max(1, u.gap || 1)) | 0;
+      if (f.actionT >= u.hit && idx < u.hits && f.actionT === u.hit + idx * (u.gap || 1)) {
+        match.p.forEach((vic) => {
+          if (vic === f || !vic.alive) return;
+          if (u.rift) { vic.x += (f.x - vic.x) * 0.55; vic.y += (f.y + 6 - vic.y) * 0.4; }
+          const reach = f.id === "quill" ? 70 : f.id === "forge" ? 28 : 22;
+          if (rangeHit(f, vic, reach) || u.rift) applyHit(f, vic, { ...u, dmg: u.dmg }, match, "ult");
+        });
+        if (f.id === "vesper") { f.vy = 2.2; f.y += 2; match.fx.push({ kind: "ult", x: f.x, y: f.y + 8, t: 12, c: "#3f7a74", s: 1.4 }); }
+        if (f.id === "quill") {
+          match.shots.push({ id: "volley", x: f.x + f.facing * 12, y: f.y + 10 + idx * 2, vx: f.facing * 4.2, vy: 0.4 - idx * 0.2, life: 36, owner: f, move: { ...u, dmg: u.dmg } });
+          match.fx.push({ kind: "spark", x: f.x + f.facing * (18 + idx * 10), y: f.y + 10, t: 10, c: "#c4a35a" });
+        }
+        if (f.id === "relay") match.fx.push({ kind: "ult", x: f.x, y: f.y + 12, t: 14, c: "#7a5cff", s: 1.8 });
+        if (f.id === "forge") {
+          f.invuln = Math.max(f.invuln, 8);
+          match.fx.push({ kind: "blast", x: f.x, y: f.y + 8, t: 16, c: "#e07a4a", s: 2.2 });
+        }
         f.ultHits += 1;
+        match.coach = u.name;
       }
     } else if (f.actionT === (mv.hit || 6)) {
       const reach = f.action === "smash" ? 22 : f.action === "special" && mv.projectile ? 64 : 18;
-      if (rangeHit(f, other, reach)) applyHit(f, other, mv, match, f.action);
+      match.p.forEach((vic) => {
+        if (vic === f || !vic.alive) return;
+        if (rangeHit(f, vic, reach)) applyHit(f, vic, mv, match, f.action);
+      });
     }
     if (f.actionT >= f.actionMax) { f.action = f.grounded ? "idle" : "air"; f.actionT = 0; }
   }
@@ -249,23 +315,36 @@ export function tickFighter(f, input, other, match) {
     const term = f.fastFall ? f.def.fastFall : f.def.fall;
     if (f.vy < -term) f.vy = -term;
   }
+  f.px = f.x; f.py = f.y;
   const prevY = f.y;
   f.x += f.vx; f.y += f.vy;
+  if (input.y < -0.28) f.dropT = 10;
+  else if (f.dropT > 0) f.dropT -= 1;
   const half = floor.main.w / 2;
   if (!floor.rules.walk_offs && f.grounded) {
     if (f.x < floor.main.x - half) { f.x = floor.main.x - half; f.vx = 0; }
     if (f.x > floor.main.x + half) { f.x = floor.main.x + half; f.vx = 0; }
   }
-  const land = platformAt(floor, f.x, f.y, prevY);
-  if (land !== null && f.vy <= 0) {
+  const drop = f.dropT > 0 || input.y < -0.28;
+  const land = platformAt(floor, f.x, f.y, prevY, drop);
+  const ignoreSoft = drop && land !== null && land !== floor.main.y;
+  if (land !== null && !ignoreSoft && f.vy <= 0) {
     f.y = land; f.vy = 0; f.grounded = true; f.jumpsLeft = f.def.jumps; f.fastFall = false;
     if (f.action === "air" || f.action === "tumble") f.action = "idle";
-  } else if (land === null) f.grounded = false;
+  } else {
+    f.grounded = false;
+  }
   const b = floor.blast;
   if (f.x < b.left || f.x > b.right || f.y > b.top || f.y < b.bottom) {
     f.stocks -= 1; f.alive = false; f.respawnT = 90; f.meter = Math.max(0, f.meter * 0.4);
     match.fx.push({ kind: "blast", x: f.x, y: f.y, t: 22, c: "#e07a4a" });
-    if (f.stocks <= 0) { match.over = true; match.winner = other.id; }
+    if (f.stocks <= 0) {
+      const live = match.p.filter((o) => o.stocks > 0);
+      if (live.length <= 1) {
+        match.over = true;
+        match.winner = (live[0] || other).id;
+      }
+    }
   }
 }
 
@@ -274,8 +353,52 @@ export function tickMatch(match, inputs) {
   match.frame += 1;
   for (const fx of match.fx) fx.t -= 1;
   match.fx = match.fx.filter((f) => f.t > 0);
-  tickFighter(match.p[0], inputs[0], match.p[1], match);
-  tickFighter(match.p[1], inputs[1], match.p[0], match);
+  if (match.itemsOn && match.frame % 90 === 30 && match.items.length < 3) {
+    const pool = ["veil-charm", "ridge-fletch", "ember-chip", "slag-heart"];
+    match.items.push({
+      id: pool[(match.frame / 90 | 0) % pool.length],
+      x: ((match.frame / 90 | 0) % 3 - 1) * 36,
+      y: 22 + ((match.frame / 90 | 0) % 2) * 12,
+    });
+  }
+  if (match.shots && match.shots.length) {
+    match.shots = match.shots.filter((s) => {
+      s.x += s.vx; s.y += s.vy; s.life -= 1;
+      match.p.forEach((vic) => {
+        if (!vic.alive || vic === s.owner) return;
+        if (Math.abs(vic.x - s.x) < 12 && Math.abs(vic.y + 8 - s.y) < 14) {
+          applyHit(s.owner, vic, s.move, match, "special");
+          s.life = 0;
+        }
+      });
+      if (s.life > 0 && s.life % 4 === 0) match.fx.push({ kind: "spark", x: s.x, y: s.y, t: 6, c: "#e8c07a" });
+      return s.life > 0;
+    });
+  }
+  if (match.items && match.items.length) {
+    match.items = match.items.filter((it) => {
+      for (const f of match.p) {
+        if (!f.alive) continue;
+        if (Math.abs(f.x - it.x) < 10 && Math.abs(f.y - it.y) < 12) {
+          f.meter = Math.min(METER_MAX, f.meter + 28);
+          match.fx.push({ kind: "spark", x: it.x, y: it.y, t: 12, c: "#e8c07a" });
+          match.coach = it.id.replace("-", " ");
+          return false;
+        }
+      }
+      return true;
+    });
+  }
+  match.p.forEach((f, i) => {
+    let other = f;
+    let best = 1e9;
+    match.p.forEach((o, j) => {
+      if (i === j || !o.alive) return;
+      const d = Math.abs(o.x - f.x) + Math.abs(o.y - f.y) * 0.35;
+      if (d < best) { best = d; other = o; }
+    });
+    tickFighter(f, inputs[i] || emptyInput(), other, match);
+  });
 }
 
 export function emptyInput() {
