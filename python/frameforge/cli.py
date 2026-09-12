@@ -42,6 +42,11 @@ def cmd_skin(args) -> int:
     return 0
 
 
+def cmd_serve(args) -> int:
+    from .serve import serve
+    return serve(kind=args.kind, host=args.host, port=args.port)
+
+
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="frameforge")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -55,6 +60,12 @@ def main(argv=None) -> int:
     sub.add_parser("emit-meshes")
     sk = sub.add_parser("skin")
     sk.add_argument("--src", default="")
+    s2 = sub.add_parser("serve-2d")
+    s2.add_argument("--host", default="127.0.0.1")
+    s2.add_argument("--port", type=int, default=8765)
+    s3 = sub.add_parser("serve-web3d")
+    s3.add_argument("--host", default="127.0.0.1")
+    s3.add_argument("--port", type=int, default=8766)
     args = p.parse_args(argv)
     if args.cmd == "test":
         return cmd_test(args)
@@ -66,6 +77,12 @@ def main(argv=None) -> int:
         return cmd_emit(args)
     if args.cmd == "skin":
         return cmd_skin(args)
+    if args.cmd == "serve-2d":
+        args.kind = "2d"
+        return cmd_serve(args)
+    if args.cmd == "serve-web3d":
+        args.kind = "web3d"
+        return cmd_serve(args)
     return 2
 
 

@@ -1,0 +1,12 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "5.4",
+  "Category": "Game",
+  "Description": "FrameForge host. Loads the FrameForge plugin. JuniorCloud LLC. Not a Nintendo product.",
+  "Modules": [
+    {"Name": "FrameForgeHost", "Type": "Runtime", "LoadingPhase": "Default"}
+  ],
+  "Plugins": [
+    {"Name": "FrameForge", "Enabled": true}
+  ]
+}
