@@ -65,9 +65,7 @@ header button, header a {
 #hud b { display: block; letter-spacing: 0.12em; }
 #hud .pct { font-size: 22px; color: var(--ember); }
 #hud .stk { display: block; color: var(--steel); letter-spacing: 0.2em; font-size: 11px; }
-#hud i {
-  position: absolute; left: 0; bottom: 0; height: 3px; background: var(--steel); display: block;
-}
+#hud i { position: absolute; left: 0; bottom: 0; height: 3px; background: var(--steel); display: block; }
 #banner, #result {
   position: absolute; left: 50%; top: 18px; transform: translateX(-50%);
   letter-spacing: 0.2em; color: var(--steel); pointer-events: none; z-index: 3;
@@ -77,28 +75,27 @@ header button, header a {
   display: none;
   position: absolute; left: 0; right: 0; bottom: 8px;
   justify-content: space-between; padding: 0 12px; align-items: flex-end;
-  z-index: 5;
-  pointer-events: none;
-  touch-action: none;
-  overscroll-behavior: none;
+  z-index: 5; pointer-events: none; touch-action: none; overscroll-behavior: none;
 }
 body.playing #touch { display: flex; }
+body.playing footer { display: none; }
+body.playing header { padding: 6px 10px; }
+body.playing header .hdr-tools a:nth-child(n+2):nth-child(-n+3) { display: none; }
+body.playing #hud { top: 6px; padding: 0 8px; }
+body.playing #hud div { min-width: 118px; padding: 6px 8px; }
+body.playing #hud .pct { font-size: 18px; }
+body.playing #banner { top: 6px; font-size: 11px; }
 #touch #stick, #touch #btns { pointer-events: auto; }
 #stick {
   width: 112px; height: 112px; border-radius: 50%; border: 1px solid var(--steel);
-  background: #121214cc;
-  touch-action: none;
-  overscroll-behavior: none;
-  user-select: none;
-  -webkit-user-select: none;
+  background: #121214cc; touch-action: none; overscroll-behavior: none;
+  user-select: none; -webkit-user-select: none;
   display: grid; place-items: center;
   color: var(--muted); font-size: 11px; letter-spacing: 0.12em;
 }
 #btns { display: grid; grid-template-columns: repeat(3, 58px); gap: 8px; touch-action: none; }
 #btns button {
   height: 48px; border-radius: 10px; border: 1px solid var(--line);
-  background: #121214cc; color: var(--fg);
-  touch-action: none;
-  user-select: none;
+  background: #121214cc; color: var(--fg); touch-action: none; user-select: none;
 }
 .note { color: var(--muted); font-size: 12px; margin-top: 18px; max-width: 48rem; }
