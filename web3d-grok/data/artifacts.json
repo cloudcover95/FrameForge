@@ -1,0 +1,9 @@
+{
+  "enabledDefault": false,
+  "items": [
+    { "id": "veil-charm", "name": "Veil Charm", "note": "Vesper dress. No knockback write." },
+    { "id": "ridge-fletch", "name": "Ridge Fletch", "note": "Quill dress." },
+    { "id": "ember-chip", "name": "Ember Chip", "note": "Relay dress." },
+    { "id": "slag-heart", "name": "Slag Heart", "note": "Forge dress." }
+  ]
+}
