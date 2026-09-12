@@ -3,17 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>FrameForge Unreal — Grok Build</title>
-    <meta name="description" content="Standalone Three.js learning slice. Procedural arena fighter. Not a Nintendo product." />
+    <title>FrameForge UE5 — Hybrid Web Beta</title>
+    <meta name="description" content="Original-roster arena fighter. Four toons, four season floors. Hybrid web cut of the UE 5.4 studio. Not a Nintendo product." />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <div id="app">
       <header>
-        <b>FRAMEFORGE · GROK BUILD</b>
-        <nav>
-          <a href="https://github.com/cloudcover95/FrameForge" target="_blank" rel="noopener">Unreal repo</a>
-          <a href="https://github.com/cloudcover95/FrameForge2D" target="_blank" rel="noopener">2D kernel</a>
+        <b>FRAMEFORGE UE5</b>
+        <nav class="hdr-tools">
+          <a href="https://github.com/cloudcover95/FrameForge" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/cloudcover95/FrameForge2D" target="_blank" rel="noopener">2D repo</a>
+          <a href="https://cloudcover95.itch.io/frameforge2d" target="_blank" rel="noopener">2D itch</a>
+          <button type="button" id="btn-pause">Pause</button>
+          <button type="button" id="btn-new">New</button>
           <button type="button" id="btn-menu">Menu</button>
         </nav>
       </header>
@@ -26,22 +29,21 @@
         <div id="banner">Bloomreach</div>
         <div id="result" hidden></div>
         <div id="touch">
-          <div id="stick" aria-label="move"></div>
+          <div id="stick" aria-label="move"><span>MOVE</span></div>
           <div id="btns">
             <button type="button" data-pad="jump">JUMP</button>
             <button type="button" data-pad="attack">ATK</button>
             <button type="button" data-pad="special">SP</button>
-            <button type="button" data-pad="shield">SH</button>
+            <button type="button" data-pad="shield">SHIELD</button>
             <button type="button" data-pad="grab">GRAB</button>
             <button type="button" data-pad="ult">ULT</button>
           </div>
         </div>
         <section id="overlay">
-          <h1>FRAMEFORGE UNREAL</h1>
+          <h1>FRAMEFORGE UE5</h1>
           <p class="sub">
-            Standalone Grok web build. Cinematic 3D arena cut of the original roster,
-            rendered with primitives — no Blender GLB, no UE 5.4 plugin meshes.
-            Same legal floor as Bloomreach / Alpine / Emberfall / Hearth.
+            Hybrid web beta of the Unreal 5.4 studio. Original roster on Bloomreach, Alpine, Emberfall, Hearth.
+            Same legal floor as the 2D kernel. Procedural 3D — no cooked pak in this zip.
           </p>
           <p>P1</p>
           <div class="row">
@@ -64,28 +66,28 @@
             <button type="button" data-stage="emberfall">Emberfall</button>
             <button type="button" data-stage="hearth">Hearth</button>
           </div>
+          <p>Options</p>
           <div class="row">
-            <label>Stocks
-              <select id="stocks">
-                <option>3</option>
-                <option selected>4</option>
-                <option>5</option>
-              </select>
-            </label>
+            <label>Stocks <select id="stocks"><option>3</option><option selected>4</option><option>5</option></select></label>
             <label><input id="cpu" type="checkbox" checked /> CPU on P2</label>
+            <label><input id="artifacts" type="checkbox" /> Artifacts dress</label>
+            <label><input id="mute" type="checkbox" /> Mute bed</label>
           </div>
           <div class="actions">
             <button type="button" id="btn-enter">Enter Arena</button>
             <button type="button" class="ghost" id="btn-quick">Quick Fight · Vesper vs Forge</button>
+            <button type="button" class="ghost" id="btn-info">Info / controls</button>
           </div>
-          <p class="note">
-            P1: WASD move · W/Space jump · J attack · K special · L shield · I grab · U ultimate · O dodge · P/Esc pause.
-            P2: arrows + 1–4. Hold J for smash. Vesper Veil Plunge is a multi-hit pull, launch-capped so it no longer yeets at low percent.
-            JuniorCloud LLC. Not a Nintendo product.
-          </p>
+          <div id="info">
+            <p><b>Repos</b> — <a href="https://github.com/cloudcover95/FrameForge">FrameForge</a> · <a href="https://github.com/cloudcover95/FrameForge2D">FrameForge2D</a> · <a href="https://cloudcover95.itch.io/frameforge2d">2D itch</a></p>
+            <p><b>P1</b> WASD · W/Space jump · J attack · K special · L shield · I grab · U ult · O dodge · P/Esc pause.</p>
+            <p><b>P2</b> arrows · 1–6. <b>Phone</b> stick + pad. Header: GitHub · Pause · New · Menu.</p>
+            <p>JuniorCloud LLC. Not a Nintendo product.</p>
+          </div>
+          <p class="note">Header matches the 2D fight page. JuniorCloud LLC. Not a Nintendo product.</p>
         </section>
       </div>
-      <footer>Learning slice inside cloudcover95/FrameForge · procedural only</footer>
+      <footer><span>cloudcover95/FrameForge · hybrid web beta</span> <a href="https://github.com/cloudcover95/FrameForge">GitHub</a></footer>
     </div>
     <script type="module" src="./js/main.js"></script>
   </body>
