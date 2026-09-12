@@ -1,0 +1,25 @@
+{
+  "note": "Display kits only. Sim capsule unchanged.",
+  "fighters": {
+    "vesper": {
+      "title": "Owl Scout",
+      "ult": "Night Gale",
+      "palette": {"primary": "#4a3428", "secondary": "#d8c3a0", "accent": "#3f7a74", "eye": "#e2c86a"}
+    },
+    "quill": {
+      "title": "Blade Ranger",
+      "ult": "Ledger Cut",
+      "palette": {"primary": "#3c4a38", "secondary": "#c4b496", "accent": "#6e8b6a", "metal": "#b8c0c8"}
+    },
+    "relay": {
+      "title": "Codex Mage",
+      "ult": "Codex Rift",
+      "palette": {"primary": "#2a3344", "secondary": "#d8d0c0", "accent": "#6a88a8", "metal": "#c4aa6a"}
+    },
+    "forge": {
+      "title": "Crystal Automaton",
+      "ult": "Core Break",
+      "palette": {"primary": "#2c3036", "secondary": "#8a9098", "accent": "#d07040", "eye": "#ffb070"}
+    }
+  }
+}
