@@ -1,5 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 #include "UObject/Object.h"
 #include "FfBitNetPolicy.generated.h"
 
@@ -22,6 +24,21 @@ public:
 			return false;
 		}
 		if (!(Buf[0]=='F' && Buf[1]=='F' && Buf[2]=='B' && Buf[3]=='N')) return false;
+		Rows = int32(Buf[4] | (Buf[5] << 8));
+		Cols = int32(Buf[6] | (Buf[7] << 8));
+		FMemory::Memcpy(&Scale, Buf.GetData() + 8, 4);
+		const int32 Count = Rows * Cols;
+		Ternary.SetNum(Count);
+		const uint8* Blob = Buf.GetData() + 16;
+		const int32 BlobN = Buf.Num() - 16;
+		static const int8 Table[4] = {0, -1, 1, 0};
+		int32 written = 0;
+		for (int32 i = 0; i < BlobN && written < Count; ++i) {
+			const uint8 Byte = Blob[i];
+			for (int32 s = 0; s < 8 && written < Count; s += 2) {
+				Ternary[written++] = Table[(Byte >> s) & 3];
+			}
+		}
 		bLoaded = true;
 		return true;
 	}
