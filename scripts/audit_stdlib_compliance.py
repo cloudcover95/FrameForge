@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 ALLOWED = {
-    "argparse", "ast", "collections", "dataclasses", "json", "math", "os",
+    "argparse", "ast", "collections", "dataclasses", "http", "json", "math", "os",
     "pathlib", "shutil", "struct", "subprocess", "sys", "typing", "__future__",
 }
 
