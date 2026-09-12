@@ -1,0 +1,10 @@
+schema_version = "1.0.0"
+id = "frameforge_emit"
+version = "0.4.2"
+name = "FrameForge Emit"
+tagline = "Headless fighter mesh emit for Unreal"
+maintainer = "JuniorCloud LLC"
+type = "add-on"
+tags = ["Import-Export", "Mesh"]
+blender_version_min = "4.2.0"
+license = ["SPDX:MIT"]
