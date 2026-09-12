@@ -52,6 +52,7 @@ function startFight() {
   ui.overlay.hidden = true;
   ui.hud.hidden = false;
   ui.result.hidden = true;
+  document.body.classList.add("playing");
   state.running = true;
 }
 
@@ -70,6 +71,64 @@ function loop() {
   state.view.sync(state.match);
   state.view.render();
   if (state.match.frame % 2 === 0) paintHud();
+}
+
+function bindPad() {
+  const pad = state.input.pad;
+  const stick = document.getElementById("stick");
+  let stickId = null;
+  const setAxis = (ev, down) => {
+    if (!stick) return;
+    const r = stick.getBoundingClientRect();
+    const x = ((ev.clientX - r.left) / r.width) * 2 - 1;
+    const y = -(((ev.clientY - r.top) / r.height) * 2 - 1);
+    if (down) {
+      pad.x = Math.max(-1, Math.min(1, x));
+      pad.y = Math.max(-1, Math.min(1, y));
+    } else {
+      pad.x = 0;
+      pad.y = 0;
+    }
+  };
+  const halt = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+  if (stick) {
+    stick.addEventListener("pointerdown", (e) => {
+      halt(e);
+      stickId = e.pointerId;
+      stick.setPointerCapture(e.pointerId);
+      setAxis(e, true);
+    });
+    stick.addEventListener("pointermove", (e) => {
+      if (stickId !== e.pointerId) return;
+      halt(e);
+      setAxis(e, true);
+    });
+    const up = (e) => {
+      if (stickId !== null && e.pointerId !== stickId) return;
+      halt(e);
+      stickId = null;
+      setAxis(e, false);
+    };
+    stick.addEventListener("pointerup", up);
+    stick.addEventListener("pointercancel", up);
+    stick.addEventListener("lostpointercapture", () => {
+      stickId = null;
+      pad.x = 0;
+      pad.y = 0;
+    });
+  }
+  document.querySelectorAll("[data-pad]").forEach((b) => {
+    const key = b.dataset.pad;
+    const on = (e) => { halt(e); pad[key] = true; };
+    const off = (e) => { halt(e); pad[key] = false; };
+    b.addEventListener("pointerdown", on);
+    b.addEventListener("pointerup", off);
+    b.addEventListener("pointercancel", off);
+    b.addEventListener("pointerleave", off);
+  });
 }
 
 function bindMenu() {
@@ -99,45 +158,21 @@ function bindMenu() {
   });
   document.getElementById("btn-menu").addEventListener("click", () => {
     state.running = false;
+    document.body.classList.remove("playing");
     ui.overlay.hidden = false;
     ui.result.hidden = true;
   });
-
-  const pad = state.input.pad;
-  const stick = document.getElementById("stick");
-  const setAxis = (ev, down) => {
-    const r = stick.getBoundingClientRect();
-    const t = ev.touches ? ev.touches[0] : ev;
-    const x = ((t.clientX - r.left) / r.width) * 2 - 1;
-    const y = -(((t.clientY - r.top) / r.height) * 2 - 1);
-    if (down) {
-      pad.x = Math.max(-1, Math.min(1, x));
-      pad.y = Math.max(-1, Math.min(1, y));
-    } else {
-      pad.x = 0;
-      pad.y = 0;
-    }
-  };
-  stick.addEventListener("pointerdown", (e) => {
-    stick.setPointerCapture(e.pointerId);
-    setAxis(e, true);
+  const info = document.getElementById("btn-info");
+  if (info) info.addEventListener("click", () => document.getElementById("info")?.classList.toggle("open"));
+  const pauseBtn = document.getElementById("btn-pause");
+  if (pauseBtn) pauseBtn.addEventListener("click", () => {
+    if (!state.match) return;
+    state.match.paused = !state.match.paused;
+    pauseBtn.textContent = state.match.paused ? "Play" : "Pause";
   });
-  stick.addEventListener("pointermove", (e) => {
-    if (e.buttons) setAxis(e, true);
-  });
-  stick.addEventListener("pointerup", () => setAxis({}, false));
-  document.querySelectorAll("[data-pad]").forEach((b) => {
-    const key = b.dataset.pad;
-    b.addEventListener("pointerdown", () => {
-      pad[key] = true;
-    });
-    b.addEventListener("pointerup", () => {
-      pad[key] = false;
-    });
-    b.addEventListener("pointerleave", () => {
-      pad[key] = false;
-    });
-  });
+  const neu = document.getElementById("btn-new");
+  if (neu) neu.addEventListener("click", () => location.reload());
+  bindPad();
 }
 
 async function boot() {
