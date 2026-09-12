@@ -65,16 +65,26 @@
             <button type="button" data-stage="emberfall">Emberfall</button>
             <button type="button" data-stage="hearth">Hearth</button>
           </div>
+          <p>Mode</p>
+          <div class="row" id="modes">
+            <button type="button" class="on" data-mode="versus">Versus CPU</button>
+            <button type="button" data-mode="training">Training</button>
+            <button type="button" data-mode="couch">Couch P2</button>
+          </div>
           <p>Options</p>
           <div class="row">
             <label>Stocks <select id="stocks"><option>3</option><option selected>4</option><option>5</option></select></label>
-            <label><input id="cpu" type="checkbox" checked /> CPU on P2</label>
+            <label><input id="opt-ults" type="checkbox" checked /> Ultimates</label>
+            <label><input id="opt-rage" type="checkbox" checked /> Rage</label>
+            <label><input id="opt-items" type="checkbox" /> Items</label>
+            <label><input id="opt-plats" type="checkbox" checked /> Extra plats</label>
             <label><input id="artifacts" type="checkbox" /> Artifacts</label>
             <label><input id="mute" type="checkbox" /> Mute</label>
           </div>
           <div class="actions">
             <button type="button" id="btn-enter">Enter Arena</button>
             <button type="button" class="ghost" id="btn-quick">Quick Fight</button>
+            <button type="button" class="ghost" id="btn-train">Training</button>
             <button type="button" class="ghost" id="btn-info">Controls</button>
           </div>
           <div id="info">
