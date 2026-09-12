@@ -1,10 +1,5 @@
-"""FrameForge BitnetCloud sidecar.
-
-Do not import this from math_kb.py. Float knockback stays the source.
-Optional poll of TritARM / crispy-mouse intent. Not a Nintendo product.
-"""
+"""FrameForge BitnetCloud sidecar. Do not import from math_kb.py. Not a Nintendo product."""
 from __future__ import annotations
-
 
 def merge_intent(base, guest=None):
     out = dict(base or {})
@@ -14,6 +9,7 @@ def merge_intent(base, guest=None):
         guest = dict(guest)
         guest["scale_knockback"] = False
     out["cpu_intent"] = guest
+    out["quant"] = guest.get("quant")
     pad = guest.get("pad") or guest
     if pad.get("trit"):
         out["lx"] = pad.get("lx", out.get("lx", 0))
