@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>FrameForge</title>
-    <meta name="description" content="Local-first platform fighter. Four original toons, four season arenas. Not a Nintendo product." />
+    <meta name="description" content="Original roster platform fighter. Solo, co-op, room." />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -24,39 +24,77 @@
         <div id="hud" hidden>
           <div id="hud-p1"></div>
           <div id="hud-p2"></div>
+          <div id="hud-p3" hidden></div>
+          <div id="hud-p4" hidden></div>
         </div>
         <div id="banner">Bloomreach</div>
         <div id="result" hidden></div>
+        <div id="combo" hidden></div>
+        <p id="coach">Ready</p>
         <div id="touch">
-          <div id="stick" aria-label="move"><span>MOVE</span></div>
-          <div id="btns">
-            <button type="button" data-pad="jump">JUMP</button>
-            <button type="button" data-pad="attack">ATK</button>
-            <button type="button" data-pad="special">SP</button>
-            <button type="button" data-pad="shield">SHIELD</button>
-            <button type="button" data-pad="grab">GRAB</button>
-            <button type="button" data-pad="ult">ULT</button>
+          <div id="bumpers">
+            <button type="button" data-pad="dodge">LB</button>
+            <button type="button" data-pad="smash">RB</button>
+          </div>
+          <div id="pads">
+            <div id="stick-wrap">
+              <div id="stick" aria-label="move">
+                <span class="quad q-up" data-q="up"></span>
+                <span class="quad q-down" data-q="down"></span>
+                <span class="quad q-left" data-q="left"></span>
+                <span class="quad q-right" data-q="right"></span>
+                <i id="knob"></i>
+                <span class="lab">MOVE</span>
+              </div>
+            </div>
+            <div id="btns">
+              <button type="button" data-pad="jump">JUMP</button>
+              <button type="button" data-pad="attack">ATK</button>
+              <button type="button" data-pad="special">SP</button>
+              <button type="button" data-pad="shield">SHIELD</button>
+              <button type="button" data-pad="grab">GRAB</button>
+              <button type="button" data-pad="ult">ULT</button>
+            </div>
           </div>
         </div>
         <section id="overlay">
+          <img id="hero-art" src="./art/banner.jpg" alt="" />
           <h1>FRAMEFORGE</h1>
           <p class="sub">
-            Local-first platform fighter. Vesper, Quill, Relay, and Forge on Bloomreach, Alpine, Emberfall, and Hearth.
-            No walk-offs. No walls. No stage hazards.
+            Original roster. Solo first. Co-op and room when you want extra seats.
+            Vesper, Quill, Relay, Forge on Bloomreach, Alpine, Emberfall, Hearth.
           </p>
-          <p>P1</p>
+          <p>Mode</p>
+          <div class="row" id="modes">
+            <button type="button" class="on" data-mode="solo">Solo</button>
+            <button type="button" data-mode="training">Training</button>
+            <button type="button" data-mode="coop">Co-op</button>
+            <button type="button" data-mode="ffa">FFA</button>
+            <button type="button" data-mode="room">Room</button>
+          </div>
+          <p>You</p>
           <div class="row">
             <button type="button" class="on" data-pick="p1:vesper">Vesper</button>
             <button type="button" data-pick="p1:quill">Quill</button>
             <button type="button" data-pick="p1:relay">Relay</button>
             <button type="button" data-pick="p1:forge">Forge</button>
           </div>
-          <p>P2</p>
-          <div class="row">
-            <button type="button" data-pick="p2:vesper">Vesper</button>
-            <button type="button" data-pick="p2:quill">Quill</button>
-            <button type="button" data-pick="p2:relay">Relay</button>
-            <button type="button" class="on" data-pick="p2:forge">Forge</button>
+          <div id="ffa-row" hidden>
+            <p>Seats</p>
+            <div class="row">
+              <button type="button" data-seats="2">2</button>
+              <button type="button" data-seats="3">3</button>
+              <button type="button" class="on" data-seats="4">4</button>
+            </div>
+          </div>
+          <div id="opp-row" hidden>
+            <p>Partner / CPU</p>
+            <div class="row">
+              <button type="button" data-pick="p2:vesper">Vesper</button>
+              <button type="button" data-pick="p2:quill">Quill</button>
+              <button type="button" data-pick="p2:relay">Relay</button>
+              <button type="button" class="on" data-pick="p2:forge">Forge</button>
+            </div>
           </div>
           <p>Season</p>
           <div class="row">
@@ -65,38 +103,73 @@
             <button type="button" data-stage="emberfall">Emberfall</button>
             <button type="button" data-stage="hearth">Hearth</button>
           </div>
-          <p>Mode</p>
-          <div class="row" id="modes">
-            <button type="button" class="on" data-mode="versus">Versus CPU</button>
-            <button type="button" data-mode="training">Training</button>
-            <button type="button" data-mode="couch">Couch P2</button>
+          <div id="room-row" hidden>
+            <p>Room</p>
+            <div class="row">
+              <input id="room-code" maxlength="4" placeholder="CODE" autocomplete="off" />
+              <button type="button" id="btn-host">Host</button>
+              <button type="button" id="btn-join">Join</button>
+              <span id="room-status">offline</span>
+            </div>
+          </div>
+          <p>CPU</p>
+          <div class="row" id="diff-row">
+            <button type="button" data-diff="easy">Easy</button>
+            <button type="button" class="on" data-diff="normal">Normal</button>
+            <button type="button" data-diff="high">High</button>
           </div>
           <p>Options</p>
           <div class="row">
             <label>Stocks <select id="stocks"><option>3</option><option selected>4</option><option>5</option></select></label>
             <label><input id="opt-ults" type="checkbox" checked /> Ultimates</label>
             <label><input id="opt-rage" type="checkbox" checked /> Rage</label>
-            <label><input id="opt-items" type="checkbox" /> Items</label>
+            <label><input id="opt-items" type="checkbox" checked /> Items</label>
             <label><input id="opt-plats" type="checkbox" checked /> Extra plats</label>
-            <label><input id="artifacts" type="checkbox" /> Artifacts</label>
+            <label><input id="opt-wires" type="checkbox" /> Wires</label>
+            <label><input id="artifacts" type="checkbox" checked /> Artifacts</label>
+            <label><input id="opt-shake" type="checkbox" checked /> Camera shake</label>
+            <label><input id="opt-lefty" type="checkbox" /> Lefty</label>
             <label><input id="mute" type="checkbox" /> Mute</label>
+          </div>
+          <p>Display</p>
+          <div class="row">
+            <button type="button" data-gfx="perf">Performance</button>
+            <button type="button" class="on" data-gfx="balanced">Balanced</button>
+            <button type="button" data-gfx="detailed">Detailed</button>
+            <label>Color <select id="opt-cb">
+              <option value="off" selected>Standard</option>
+              <option value="deut">Deuteranopia</option>
+              <option value="prot">Protanopia</option>
+              <option value="trit">Tritanopia</option>
+            </select></label>
           </div>
           <div class="actions">
             <button type="button" id="btn-enter">Enter Arena</button>
-            <button type="button" class="ghost" id="btn-quick">Quick Fight</button>
+            <button type="button" class="ghost" id="btn-quick">Quick Solo</button>
             <button type="button" class="ghost" id="btn-train">Training</button>
+            <button type="button" class="ghost" id="btn-ffa">FFA</button>
             <button type="button" class="ghost" id="btn-info">Controls</button>
           </div>
           <div id="info">
             <p><b>P1</b> WASD · W/Space jump · J attack · K special · L shield · I grab · U ult · O dodge · P/Esc pause.</p>
-            <p><b>P2</b> arrows · 1–6. <b>Phone</b> stick + pad.</p>
-            <p>JuniorCloud LLC. Not a Nintendo product.</p>
+            <p><b>Co-op</b> P2 arrows · 1–6. <b>Phone</b> stick + pad. Room uses the same 4-letter codes as 2D.</p>
+            <p><b>CPU</b> Easy wanders. Normal approaches and punishes shields. High edge-guards and mix grabs.</p>
+            <p><b>Wires</b> stage rails. <b>Lefty</b> flips stick and buttons. Display: Performance 60, Balanced 60, Detailed high-refresh render.</p>
+            <p>JuniorCloud LLC.</p>
           </div>
-          <p class="note">JuniorCloud LLC. Not a Nintendo product.</p>
+          <p class="note">JuniorCloud LLC.</p>
         </section>
       </div>
       <footer><span>JuniorCloud LLC</span> <a href="https://cloudcover95.itch.io/frameforge2d">FrameForge 2D</a></footer>
     </div>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.1/build/three.module.js"
+        }
+      }
+    </script>
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
     <script type="module" src="./js/main.js"></script>
   </body>
 </html>
