@@ -1,43 +1,34 @@
-# FrameForge UE5 — itch page copy
+# FrameForge — itch page copy (public)
 
-**Title:** FrameForge UE5 (Hybrid Web Beta)
-**URL slug:** frameforge-unreal-web
-**Kind:** HTML
-**Price:** Free / PWYW
-**Classification:** Game
-**Release status:** In development (beta 0.4.2)
+Paste this on https://cloudcover95.itch.io/frameforge
+Do not put pipeline notes, BitNet, Grok, or Blender on the storefront.
 
-## Short description
+**Title:** FrameForge
 
-Original-roster arena fighter. Four toons, four season floors, 3D web hybrid of the UE 5.4 studio. Not a Nintendo product.
+**Short description**
 
-## Long description
+Local-first platform fighter. Four original toons, four season arenas.
 
-FrameForge UE5 is the hybrid web cut of JuniorCloud's arena fighter. Same original roster and legal floor as the shipped 2D kernel — Vesper, Quill, Relay, Forge on Bloomreach, Alpine, Emberfall, and Hearth.
+**Long description**
 
-This HTML5 project is a Three.js twin of the Unreal 5.4 plugin. It does not ship cooked UE pak files.
+FrameForge is a local-first platform fighter beta.
 
-- 2D live — https://cloudcover95.itch.io/frameforge2d
-- Studio + UE plugin — https://github.com/cloudcover95/FrameForge
-- 2D source — https://github.com/cloudcover95/FrameForge2D
+Four original fighters — Vesper (owl scout), Quill (hooded ranger), Relay (ember mage), Forge (crystal automaton) — on four seasonal arenas that share one competitive floor. No walk-offs. No stage hazards. No walls.
 
-Stocks 3–5. CPU or couch P2. Artifacts dress off by default. BitNet does not scale knockback.
+Stocks start at 4. Blastzones are the same on every season skin.
+
+This page is the 3D web beta. The 2D kernel is here: https://cloudcover95.itch.io/frameforge2d
+
+Source: https://github.com/cloudcover95/FrameForge
+
 JuniorCloud LLC. Not a Nintendo product.
 
-## Tags
+**Tags**
 
 fighting, platform-fighter, arena-fighter, 3d, browser, html5, local-multiplayer, indie, original-characters
 
-## Controls
+**Controls**
 
 P1: WASD, W/Space jump, J attack (hold smash), K special, L shield, I grab, U ult, O dodge, P/Esc pause.
 P2: arrows, 1-6.
-Touch: stick + JUMP ATK SP SHIELD GRAB ULT.
-Header: GitHub · 2D itch · Pause · New · Menu.
-
-## Run
-
-```
-python3 -m python.frameforge.cli serve-web3d --port 8766
-butler push dist/frameforge-unreal-web.zip cloudcover95/frameforge-unreal-web:html5
-```
+Phone: left stick + JUMP ATK SP SHIELD GRAB ULT.
