@@ -3,18 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>FrameForge UE5 — Hybrid Web Beta</title>
-    <meta name="description" content="Original-roster arena fighter. Four toons, four season floors. Hybrid web cut of the UE 5.4 studio. Not a Nintendo product." />
+    <title>FrameForge</title>
+    <meta name="description" content="Local-first platform fighter. Four original toons, four season arenas. Not a Nintendo product." />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <div id="app">
       <header>
-        <b>FRAMEFORGE UE5</b>
+        <b>FRAMEFORGE</b>
         <nav class="hdr-tools">
           <a href="https://github.com/cloudcover95/FrameForge" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://github.com/cloudcover95/FrameForge2D" target="_blank" rel="noopener">2D repo</a>
-          <a href="https://cloudcover95.itch.io/frameforge2d" target="_blank" rel="noopener">2D itch</a>
+          <a href="https://cloudcover95.itch.io/frameforge2d" target="_blank" rel="noopener">2D</a>
           <button type="button" id="btn-pause">Pause</button>
           <button type="button" id="btn-new">New</button>
           <button type="button" id="btn-menu">Menu</button>
@@ -40,10 +39,10 @@
           </div>
         </div>
         <section id="overlay">
-          <h1>FRAMEFORGE UE5</h1>
+          <h1>FRAMEFORGE</h1>
           <p class="sub">
-            Hybrid web beta of the Unreal 5.4 studio. Original roster on Bloomreach, Alpine, Emberfall, Hearth.
-            Same legal floor as the 2D kernel. Procedural 3D — no Blender GLB, no cooked pak in this zip.
+            Local-first platform fighter. Vesper, Quill, Relay, and Forge on Bloomreach, Alpine, Emberfall, and Hearth.
+            No walk-offs. No walls. No stage hazards.
           </p>
           <p>P1</p>
           <div class="row">
@@ -59,7 +58,7 @@
             <button type="button" data-pick="p2:relay">Relay</button>
             <button type="button" class="on" data-pick="p2:forge">Forge</button>
           </div>
-          <p>Season floor</p>
+          <p>Season</p>
           <div class="row">
             <button type="button" class="on" data-stage="bloomreach">Bloomreach</button>
             <button type="button" data-stage="alpine">Alpine</button>
@@ -70,24 +69,23 @@
           <div class="row">
             <label>Stocks <select id="stocks"><option>3</option><option selected>4</option><option>5</option></select></label>
             <label><input id="cpu" type="checkbox" checked /> CPU on P2</label>
-            <label><input id="artifacts" type="checkbox" /> Artifacts dress</label>
-            <label><input id="mute" type="checkbox" /> Mute bed</label>
+            <label><input id="artifacts" type="checkbox" /> Artifacts</label>
+            <label><input id="mute" type="checkbox" /> Mute</label>
           </div>
           <div class="actions">
             <button type="button" id="btn-enter">Enter Arena</button>
-            <button type="button" class="ghost" id="btn-quick">Quick Fight · Vesper vs Forge</button>
-            <button type="button" class="ghost" id="btn-info">Info / controls</button>
+            <button type="button" class="ghost" id="btn-quick">Quick Fight</button>
+            <button type="button" class="ghost" id="btn-info">Controls</button>
           </div>
           <div id="info">
-            <p><b>Repos</b> — <a href="https://github.com/cloudcover95/FrameForge">FrameForge</a> · <a href="https://github.com/cloudcover95/FrameForge2D">FrameForge2D</a> · <a href="https://cloudcover95.itch.io/frameforge2d">2D itch</a></p>
             <p><b>P1</b> WASD · W/Space jump · J attack · K special · L shield · I grab · U ult · O dodge · P/Esc pause.</p>
-            <p><b>P2</b> arrows · 1–6. <b>Phone</b> stick + pad. Header: GitHub · Pause · New · Menu.</p>
+            <p><b>P2</b> arrows · 1–6. <b>Phone</b> stick + pad.</p>
             <p>JuniorCloud LLC. Not a Nintendo product.</p>
           </div>
-          <p class="note">Header matches the 2D fight page. JuniorCloud LLC. Not a Nintendo product.</p>
+          <p class="note">JuniorCloud LLC. Not a Nintendo product.</p>
         </section>
       </div>
-      <footer><span>cloudcover95/FrameForge · hybrid web beta</span> <a href="https://github.com/cloudcover95/FrameForge">GitHub</a></footer>
+      <footer><span>JuniorCloud LLC</span> <a href="https://cloudcover95.itch.io/frameforge2d">FrameForge 2D</a></footer>
     </div>
     <script type="module" src="./js/main.js"></script>
   </body>
