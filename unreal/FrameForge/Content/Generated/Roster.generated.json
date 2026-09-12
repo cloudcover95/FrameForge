@@ -1,0 +1,14 @@
+{
+  "product": "FrameForge",
+  "sim_hz": 120,
+  "snapshot_hz": 20,
+  "fighters": {
+    "forge": {"display_name": "Forge", "weight": 113, "archetype": "heavy"},
+    "quill": {"display_name": "Quill", "weight": 87, "archetype": "sword-spacer"},
+    "relay": {"display_name": "Relay", "weight": 100, "archetype": "midweight-mage"},
+    "vesper": {"display_name": "Vesper", "weight": 75, "archetype": "fast-faller"}
+  },
+  "stages": ["alpine", "bloomreach", "emberfall", "hearth"],
+  "look": {"lumen_gi": false, "chaos_fighter_mesh": false, "bitnet_knockback_write": false},
+  "legal": "Not a Nintendo product. JuniorCloud LLC."
+}
