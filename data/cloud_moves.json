@@ -1,0 +1,27 @@
+{
+  "legal": "Not a Nintendo product. JuniorCloud LLC. Cloud names only.",
+  "basics": {
+    "tap": { "was": "jab", "lore": "short peck / slag nick" },
+    "sweep": { "was": "tilt", "lore": "grounded arc" },
+    "drive": { "was": "smash", "lore": "charged beat" },
+    "vault": { "was": "dash_attack", "lore": "run-in shoulder" },
+    "arc_n": { "was": "nair", "lore": "neutral air ring" },
+    "arc_f": { "was": "fair", "lore": "forward air sickle" },
+    "arc_b": { "was": "bair", "lore": "back air hook" },
+    "arc_u": { "was": "uair", "lore": "up air lift" },
+    "arc_d": { "was": "dair", "lore": "down air drop" },
+    "clinch": { "was": "grab", "lore": "hold" },
+    "toss_f": { "was": "fthrow", "lore": "forward toss" },
+    "toss_b": { "was": "bthrow", "lore": "back toss" },
+    "toss_u": { "was": "uthrow", "lore": "up toss" },
+    "toss_d": { "was": "dthrow", "lore": "down toss" }
+  },
+  "signatures": {
+    "vesper": { "special": "Gale Pin", "ultimate": "Veil Plunge" },
+    "quill": { "special": "Longshot", "ultimate": "Ridge Volley" },
+    "relay": { "special": "Sigil Step", "ultimate": "Codex Rift" },
+    "forge": { "special": "Slag Guard", "ultimate": "Core Collapse" }
+  },
+  "angle_sakurai": 361,
+  "note": "361 is a public fighter-math token. Do not ship Smash stage or fighter names."
+}
