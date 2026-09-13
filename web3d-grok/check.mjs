@@ -15,10 +15,31 @@ assert.equal(roster.floor.rules.walk_offs, false);
 assert.equal(roster.floor.rules.walls, false);
 assert.equal(roster.floor.rules.hazards, false);
 assert.equal(roster.floor.main.w, 168);
+assert.equal(roster.floor.blast.left, -232);
+assert.equal(roster.floor.blast.right, 232);
+assert.equal(roster.floor.blast.top, 212);
+assert.equal(roster.floor.blast.bottom, -128);
+assert.equal(roster.fighters.forge.scale, 1.18);
+assert.equal(roster.fighters.relay.scale, 1.02);
+
+const seasons = JSON.parse(readFileSync(join(root, "data/seasons.json"), "utf8"));
+assert.equal(seasons.look_style, "ff_toon");
+assert.equal(seasons.aliases.alpine, "alpine_glass");
+assert.equal(seasons.aliases.hearth, "neon_hearth");
+assert.equal(seasons.aliases.emberfall, "sunarch");
+assert.equal(seasons.lock.plats_extra[0].y, 48);
+assert.equal(seasons.presenter.boot_on_home_envelope, false);
+assert.equal(seasons.presenter.max_resolution[0], 3840);
+assert.doesNotMatch(JSON.stringify(seasons), /borderlands/i);
 
 const mathSrc = readFileSync(join(root, "js/math.js"), "utf8");
 assert.match(mathSrc, /LAUNCH_SPEED_SCALE = 0.03/);
 assert.match(mathSrc, /HITSTUN_FACTOR = 0.4/);
+assert.match(mathSrc, /SPDX-License-Identifier: MIT/);
+
+const hb = readFileSync(join(root, "js/hitbox.js"), "utf8");
+assert.match(hb, /arcPoints/);
+assert.doesNotMatch(hb, /fetch\(/);
 
 const py = spawnSync(
   "python3",
@@ -78,4 +99,10 @@ for (let i = 0; i < 180; i++) tickMatch(match, [atk, emptyInput()]);
 assert.equal(match.p[0].alive || match.p[0].stocks <= 1, true);
 assert.ok(match.frame === 180);
 
-console.log(JSON.stringify({ ok: true, slice: "web3d-grok", fighters: Object.keys(roster.fighters), knockback80_12_75: Number(kb.toFixed(4)), python_match: true }, null, 2));
+const { arcPoints, hits, trit } = await import("./js/hitbox.js");
+const pts = arcPoints(0, 0, 1, 18, 10, 5);
+assert.equal(pts.length, 5);
+assert.equal(trit(0.9), 1);
+assert.ok(hits(pts, 14, 4, 12));
+
+console.log(JSON.stringify({ ok: true, slice: "web3d-grok", fighters: Object.keys(roster.fighters), knockback80_12_75: Number(kb.toFixed(4)), python_match: true, seasons: Object.keys(seasons.seasons) }, null, 2));
