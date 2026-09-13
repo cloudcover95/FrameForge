@@ -18,6 +18,11 @@ RAILS = {
     "ramp": ["half_lambert", "cheap_band", "season_lut", "T_FfRamp"],
     "shading": ["M_FfToon", "PP_FfInk", "no_lumen_gi", "custom_depth"],
     "ecosystem": ["juniorcloudllc", "juniorhome", "junioromega", "frameforge"],
+    "lif": ["ternary_spike", "reset_subtract", "fflf_pack", "intent_only"],
+    "quant_engine": ["absmean_keep", "ffbn", "ffcs", "fflf", "skip_zero_eval"],
+    "trit_arm": ["original_isa", "mmio_intent", "guest_tas_only", "no_vendor_rom"],
+    "trit_stack": ["lif", "ffbn", "trit_arm", "juniorllm_envelope"],
+    "juniorllm": ["FieldCore", "AstraReason", "Fable", "text_only"],
 }
 
 
