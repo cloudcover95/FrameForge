@@ -1,0 +1,45 @@
+{
+  "product": "FrameForge",
+  "legal": "Not a Nintendo product. JuniorCloud LLC.",
+  "look_style": "ff_toon",
+  "web_scale": 0.045,
+  "web_fov": { "portrait": 54, "landscape": 42 },
+  "lock": {
+    "blast": { "left": -232, "right": 232, "top": 212, "bottom": -128 },
+    "main": { "x": 0, "y": 0, "w": 168, "h": 9 },
+    "plats_legal": [
+      { "id": "plat_l", "x": -54, "y": 27, "w": 34, "h": 3, "solid": false },
+      { "id": "plat_r", "x": 54, "y": 27, "w": 34, "h": 3, "solid": false }
+    ],
+    "plats_extra": [
+      { "id": "plat_ml", "x": -28, "y": 48, "w": 30, "h": 3, "solid": false },
+      { "id": "plat_mr", "x": 28, "y": 48, "w": 30, "h": 3, "solid": false }
+    ]
+  },
+  "aliases": {
+    "alpine": "alpine_glass",
+    "alpine_glass": "alpine",
+    "bloomreach": "bloomreach",
+    "hearth": "neon_hearth",
+    "neon_hearth": "hearth",
+    "emberfall": "sunarch",
+    "sunarch": "emberfall"
+  },
+  "seasons": {
+    "bloomreach": { "web": "bloomreach", "ue": "bloomreach", "season": "spring", "world_scale": 22.0, "camera_distance": 1400, "camera_pitch": -8 },
+    "alpine": { "web": "alpine", "ue": "alpine_glass", "season": "autumn", "world_scale": 26.0, "camera_distance": 1600, "camera_pitch": -10 },
+    "emberfall": { "web": "emberfall", "ue": "sunarch", "season": "summer", "world_scale": 24.0, "camera_distance": 1500, "camera_pitch": -6 },
+    "hearth": { "web": "hearth", "ue": "neon_hearth", "season": "winter", "world_scale": 28.0, "camera_distance": 1700, "camera_pitch": -7 }
+  },
+  "presenter": {
+    "engine": "UE5.4",
+    "boot_on_home_envelope": false,
+    "max_resolution": [3840, 2160],
+    "allow_8k": true,
+    "refresh_hz": 0,
+    "sim_hz": 120,
+    "snapshot_hz": 20,
+    "look_style": "ff_toon"
+  },
+  "toon_scale": { "vesper": 1.0, "quill": 1.05, "relay": 1.02, "forge": 1.18 }
+}
