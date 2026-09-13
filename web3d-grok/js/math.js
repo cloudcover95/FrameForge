@@ -1,3 +1,8 @@
+/* SPDX-License-Identifier: MIT
+ * Copyright (c) 2026 JuniorCloud LLC and FrameForge contributors.
+ * See /LICENSE and /LICENSE.md. Not a Nintendo product.
+ * BitNet does not scale launch.
+ */
 /** Melee-documented knockback. Mirrors python/frameforge/math_kb.py.
  *  O(1) per hit. Four fighters. Do not GPU this. BitNet does not scale launch.
  */
@@ -50,7 +55,6 @@ export function launchVelocity(kb, angleDeg, facing = 1) {
   return { vx: speed * Math.cos(rad) * facing, vy: speed * Math.sin(rad) };
 }
 
-/** Soft cap so a learning-slice ult cannot yeet at low percent. */
 export function clampLaunch(vx, vy, maxSpeed) {
   const s = Math.hypot(vx, vy);
   if (s <= maxSpeed || s === 0) return { vx, vy };
